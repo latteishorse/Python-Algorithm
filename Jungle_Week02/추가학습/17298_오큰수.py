@@ -1,7 +1,6 @@
 import sys 
 input = sys.stdin.readline
 
-
 n = int(input()) 
 nge = list(map(int, input().split())) 
 stack = []

@@ -37,7 +37,7 @@ def moo(k, leng, num):
         return 'm'
 
     # 뒤쪽에 있을 경우
-    # leng + k + 3 + 1
+    # leng + (k + 1) + 3 
     elif num > leng + k + 4: 
         return moo(k, leng, num - leng - k - 4)
 

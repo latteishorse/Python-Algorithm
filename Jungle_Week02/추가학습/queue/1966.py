@@ -51,17 +51,21 @@ for _ in range(tc):
     n,m = list(map(int, input().split()))
     doc = list(map(int, input().split()))
     posDoc = list(range(len(doc)))
-    posDoc[m] = "1"
+    key = posDoc[m]
     order = 0
+
     while doc:
         if doc[0]== max(doc):
             order += 1
-            if posDoc[0]== "1":
+
+            if posDoc[0]== key:
                 print(order)
                 break
+
             else:
                 doc.pop(0)
                 posDoc.pop(0)
+
         else:
             doc.append(doc.pop(0))
             posDoc.append(posDoc.pop(0))        

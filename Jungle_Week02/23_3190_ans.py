@@ -13,7 +13,7 @@ l = int(input())
 for _ in range(l):
     x, c = input().split()
     info.append((int(x), c))
-
+ 
 # 처음에는 오른쪽을 보고 있으므로(동, 남, 서, 북)
 dx = [0, 1, 0, -1]
 dy = [1, 0, -1, 0]
@@ -44,10 +44,14 @@ def simulate():
                 q.append((nx, ny))
                 px, py = q.pop(0)
                 data[px][py] = 0
+                 
+
             # 사과가 있다면 이동 후에 꼬리 그대로 두기
             if data[nx][ny] == 1:
                 data[nx][ny] = 2
                 q.append((nx, ny))
+                 
+
         # 벽이나 뱀의 몸통과 부딪혔다면
         else:
             time += 1
@@ -57,6 +61,8 @@ def simulate():
         if index < l and time == info[index][0]: # 회전할 시간인 경우 회전
             direction = turn(direction, info[index][1])
             index += 1
+             
+
     return time
 
 print(simulate())
