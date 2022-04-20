@@ -7,34 +7,66 @@
 
 # https://ko.wikipedia.org/wiki/%EC%9D%B4%EB%B6%84_%EA%B7%B8%EB%9E%98%ED%94%84
 
-# dfs template
 import sys
+# 문제 조건 20000
+sys.setrecursionlimit(20000)
 input = sys.stdin.readline
-sys.setrecursionlimit(10**6)
 
-def dfs(n):
-    # print(n, end=' ')
-    visited[n] == 1
-    for i in graph[n]:
-        
-        if visited[i] == 0:
+def dfs(start, group):
+    global error
 
-            dfs(i)
+    # 만약 사이클이 true라면 재귀탈출
+    if error:
+        return
 
-tc = int(input())
+    # ex) visited[1] = 1
+    # visited[3] = -1
+    visited[start] = group  # 해당 그룹으로 등록
 
-for _ in range():
-    v, e = map(int, input().split())
+    # graph[1] - > 3
+    # graph[3] -> 1, 2
+    for i in graph[start]:
 
-    graph =[[] for _ in range(v+1)]
+        if not visited[i]:
+            dfs(i, -group)  # 다른 그룹으로 설정
 
+        #dfs(3, -1)
+        #dfs(2, 1)
 
-    for _ in range(v):
+        elif visited[start] == visited[i]:  # 인접한데 같은 그룹이라면
+
+            error = True  # 에러값 True
+            return  # 그후 재귀 리턴
+
+TC = int(input())
+
+for _ in range(TC):
+    # 2번째줄 입력
+    V, E = map(int, input().split())
+
+    graph = [[] for _ in range(V + 1)]  # 빈 그래프 생성
+    # 
+    visited = [False] * (V + 1)  # 방문한 정점 체크
+    error = False
+
+    for _ in range(E):
         a, b = map(int, input().split())
         graph[a].append(b)
         graph[b].append(a)
 
-    visited = [0] * (v + 1)
+    for i in range(1, V + 1):
+        if not visited[i]:  # 만약 아직 방문하지 않았다면
 
-    for i in range(v):
-        print(visited[i])
+# group 1 => 초기 그룹
+            dfs(i, 1)  # dfs를 돈다.
+
+            if error:  # 만약 에러가 참이라면
+                break  # 탈출
+
+    if error:
+        print('NO')
+        
+    else:
+        print('YES')
+
+# print( if result else )

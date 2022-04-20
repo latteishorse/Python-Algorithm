@@ -1,47 +1,56 @@
 # 1260
-import sys
-from collections import deque
-sys.setrecursionlimit(10000)
-input = sys.stdin.readline
 
-# Depth First Search
-def dfs(n):
-    print(n, end=' ')
-    visited[n] = True
-    for i in graph[n]:
+# dfs
+# 아직 방문하지 않은 노드를
+# True, False로 판단 -> 방문한 곳은 True로 바꿔준다
+# recursion으로 구현
+def dfs(graph, v, visited):
+    # 현재 노드를 방문 처리
+    visited[v] = True
+    print(v, end=' ')
+    # 현재 노드와 연결된 다른 노드를 재귀적으로 방문
+    for i in graph[v]:
         if not visited[i]:
-            dfs(i)
+            dfs(graph, i, visited)
 
-# Breadth First Search
-def bfs(n):
-    visited[n] = True
-    queue = deque([n])
-    while queue:
-        v = queue.popleft()
-        print(v, end= ' ')
-        for i in graph[v]:
-            if not visited[i]:
-                queue.append(i)
-                visited[i] = True
 
-# node, branch, first node
-n, m, v = map(int, input().split())
-graph = [[] for _ in range(n+1)]
-visited = [False] * (n + 1)
+# stack으로 구현
+# def iterative_dfs(v):
+#     discovered = []
+#     stack = [v]
+#     while stack:
+#         v = stack.pop()
+#         if v not in discovered:
+#             discovered.append(v)
+#             for w in graph(v):
+#                 stack.append(w)
+#     return discovered
 
-# make adjacency list
-for _ in range(m):
+# # bfs
+# def bfs(graph, v):
+#     discovered = [v]
+#     queue = [v]
+#     while queue:
+#         for w in graph[queue.pop(0)]:
+#             if not discovered:
+#                 discovered.append(w)
+#                 queue.append(w)
+#     return discovered
+
+# --
+N, M, V = map(int, input().split())
+graph = [[] for _ in range(N+1)]
+
+for _ in range(M):
     a, b = map(int, input().split())
     graph[a].append(b)
     graph[b].append(a)
+    graph[a].sort()
+    graph[b].sort()
 
-# sort adjacency list
-# -> vertex가 작은 순서부터
-for i in range(1, n+1):
-    graph[i].sort()
+visited = [False] * (N+1)
 
-dfs(v)
-# initialize check list
-visited = [False] * (n + 1)
+# dfs(graph, V, visited)
+# print()
+bfs(graph, V)
 print()
-bfs(v)

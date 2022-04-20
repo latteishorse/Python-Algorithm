@@ -17,8 +17,7 @@ for _ in range(E):
     Elist.append(list(map(int, input().split())))
  
 Elist.sort(key=lambda x: x[2])
- 
- 
+
 def find(x):
     if x != Vroot[x]:
         Vroot[x] = find(Vroot[x])
@@ -31,6 +30,7 @@ for s, e, w in Elist:
     eRoot = find(e)
 
 # 가중치를 더한다
+# union
     if sRoot != eRoot:
         if sRoot > eRoot:
             Vroot[sRoot] = eRoot

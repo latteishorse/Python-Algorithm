@@ -30,6 +30,8 @@ for _ in range(m):
     graph[b].append(a)
 
 visited = [False] * (n + 1)
+
+
 # 11724
 cnt = 0
 
